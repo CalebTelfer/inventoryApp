@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 8080;
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
+//route
+const indexRouter = require('./routes/indexRouter');
+app.use('/', indexRouter);
+
+
 
 //start server
 app.listen(PORT, (error) => {
