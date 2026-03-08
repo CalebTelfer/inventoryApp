@@ -3,10 +3,14 @@ require("dotenv").config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
+const path = require('node:path');
 
 //ejs config
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+
+//css config
+app.use(express.static(path.join(__dirname, "public")));
 
 //route
 const indexRouter = require('./routes/indexRouter');
