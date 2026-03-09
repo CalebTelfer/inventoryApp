@@ -40,47 +40,21 @@
 
 
     <div class="game-grid">
-        <div class="game-card">
-            <img src="/examplegame.jpg">
-            <div class="game-title">
-                <div class="title-flex">
-                    <h3>$50.93</h3>
-                    <h3>Dune Awakening</h3>
-                </div>
-                <div>
-                    <h3>Genre</h3>
-                </div>
-            </div>
-            <p class="game-desc">Short item description that isn't super duper duper or else it will flow away off the page</p>
-        </div>
-
+        <%games.forEach((game) => { %>
             <div class="game-card">
-            <img src="/examplegame.jpg">
-            <div class="game-title">
-                <div class="title-flex">
-                    <h3>$50.93</h3>
-                    <h3>Dune Awakening</h3>
+                <img src="<%=game.img_url%>">
+                <div class="game-title">
+                    <div class="title-flex">
+                        <h3><%=game.price_cents %></h3>
+                        <h3><%=game.game%></h3>
+                    </div>
+                    <div>
+                        <h3><%=game.genres%></h3>
+                    </div>
                 </div>
-                <div>
-                    <h3>Genre</h3>
-                </div>
+                <p class="game-desc"><%=game.description%></p>
             </div>
-            <p class="game-desc">Short item description that isn't super duper duper or else it will flow away off the page</p>
-        </div>
-
-                <div class="game-card">
-            <img src="/examplegame.jpg">
-            <div class="game-title">
-                <div class="title-flex">
-                    <h3>$50.93</h3>
-                    <h3>Dune Awakening</h3>
-                </div>
-                <div>
-                    <h3>Genre</h3>
-                </div>
-            </div>
-            <p class="game-desc">Short item description that isn't super duper duper or else it will flow away off the page</p>
-        </div>
+        <%})%>
     </div>
 
 
