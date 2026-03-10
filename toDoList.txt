@@ -1,0 +1,23 @@
+
+--------------------
+Admin panel should display the games-
+BUTTONS to delete instead of searching by game name.
+EDIT button, redirects to a page with just that game and editable info! + save / update button.
+---------------------
+
+---------------------
+Add to cart / purchase buttons on each game card.
+Cart page. maybe do this later i dont know nobody will actually be buying anything.
+---------------------
+
+
+
+----------Eventually-------------
+Clean up CSS its a mess...
+Modularize the ejs files maybe.
+Sanitize / Validate receiving info.
+Create failsafes... 
+ex: gamename doesnt exist.
+wrong steam link
+Comment code (theres none lol)
+
