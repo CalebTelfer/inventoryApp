@@ -91,8 +91,22 @@ async function deleteGame(game) {
     [gameID]
   )
 }
+
+
+async function updateGame(name, price) {
+  await pool.query(
+    `
+    UPDATE games
+    SET price_cents = $1
+    WHERE game = $2
+    `,
+    [price, name]
+  )
+}
+
 module.exports = {
   getAllGames,
   insertGame,
-  deleteGame
+  deleteGame,
+  updateGame
 };

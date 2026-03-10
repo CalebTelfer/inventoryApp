@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const indexRouter = Router();
-const { getAllGames, insertGame, deleteGame } = require("../database/queries");
+const { getAllGames, insertGame, deleteGame, updateGame } = require("../database/queries");
 
 indexRouter.get('/', async (req, res) => {
     const rawGames = await getAllGames();
@@ -40,7 +40,13 @@ indexRouter.post('/deletegame', async (req,res) => {
     const gameName = req.body.delgame;
     await deleteGame(gameName);
     res.redirect('/');
+});
 
+indexRouter.post('/updateprice', async (req,res) => {
+    const gameName = req.body.updatename;
+    const price = req.body.newprice; //here would be a good idea to sanitize or validate input later
+    await updateGame(gameName, price);
+    res.redirect('/');
 });
 
 
