@@ -11,4 +11,6 @@ indexRouter.get('/', async (req, res) => {
     res.render('index', {games});
 })
 
+
+indexRouter.get('/admin', (req,res) => res.render('admin'));
 module.exports = indexRouter;
