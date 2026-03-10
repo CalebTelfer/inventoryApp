@@ -20,7 +20,45 @@ async function getAllGames() {
   return rows;
 }
 
-async function insertGame() {
+async function insertGame(game) {
+  const gameResult = await pool.query(`
+    INSERT INTO games (game, price_cents, img_url, description)
+    VALUES ($1,$2,$3,$4)
+    RETURNING ID
+  `,
+  [game.name, game.priceInCents, game.img, game.description]
+);
+
+const gameId = gameResult.rows[0].id;
+
+  for (const genre of game.genres) {
+    await pool.query(`
+      INSERT INTO genres (genre)
+      VALUES ($1)
+      ON CONFLICT (genre) DO NOTHING
+    `,
+    [genre]
+    );
+
+    const genreResult = await pool.query(
+      `
+      SELECT id FROM genres
+      WHERE genre = $1
+      `,
+      [genre]
+    );
+
+    const genreId = genreResult.rows[0].id;
+
+    await pool.query(
+      `
+      INSERT INTO game_genres (game_id, genre_id)
+      VALUES ($1,$2)
+      `,
+      [gameId, genreId]
+    );
+
+  }
 
 }
 module.exports = {

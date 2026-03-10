@@ -32,7 +32,8 @@ indexRouter.post('/newgame', async (req,res) => {
         description: gameObj.short_description
     }
 
-    insertGame(gameData);
+    await insertGame(gameData);
+    res.redirect('/');
 })
 
 module.exports = indexRouter;
