@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const indexRouter = Router();
-const { getAllGames, insertGame } = require("../database/queries");
+const { getAllGames, insertGame, deleteGame } = require("../database/queries");
 
 indexRouter.get('/', async (req, res) => {
     const rawGames = await getAllGames();
@@ -35,5 +35,13 @@ indexRouter.post('/newgame', async (req,res) => {
     await insertGame(gameData);
     res.redirect('/');
 })
+
+indexRouter.post('/deletegame', async (req,res) => {
+    const gameName = req.body.delgame;
+    await deleteGame(gameName);
+    res.redirect('/');
+
+});
+
 
 module.exports = indexRouter;

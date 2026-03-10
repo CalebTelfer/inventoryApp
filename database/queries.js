@@ -61,7 +61,38 @@ const gameId = gameResult.rows[0].id;
   }
 
 }
+
+async function deleteGame(game) {
+  const gameResult = await pool.query(
+    `
+    SELECT id FROM games WHERE game = $1
+    `,
+    [game]
+  );
+
+  if(gameResult.rows.length === 0) {
+    return; //no game found with this name
+  }
+
+  const gameID = gameResult.rows[0].id;
+
+
+  await pool.query(
+    `
+    DELETE FROM game_genres WHERE game_id = $1;
+    `,
+    [gameID]
+  )
+
+    await pool.query(
+    `
+    DELETE FROM games WHERE id = $1;
+    `,
+    [gameID]
+  )
+}
 module.exports = {
   getAllGames,
-  insertGame
+  insertGame,
+  deleteGame
 };
