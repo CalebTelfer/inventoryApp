@@ -19,6 +19,11 @@ async function getAllGames() {
 
   return rows;
 }
+
+async function insertGame() {
+
+}
 module.exports = {
-  getAllGames
+  getAllGames,
+  insertGame
 };

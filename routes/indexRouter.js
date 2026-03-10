@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const indexRouter = Router();
-const { getAllGames } = require("../database/queries");
+const { getAllGames, insertGame } = require("../database/queries");
 
 indexRouter.get('/', async (req, res) => {
     const rawGames = await getAllGames();
@@ -13,4 +13,26 @@ indexRouter.get('/', async (req, res) => {
 
 
 indexRouter.get('/admin', (req,res) => res.render('admin'));
+
+
+indexRouter.post('/newgame', async (req,res) => {
+    const url = req.body.steamurl;
+    const appID = url.match(/\/app\/(\d+)/)[1];
+
+    const response = await fetch(`https://store.steampowered.com/api/appdetails/?appids=${appID}`);
+    const data = await response.json();
+
+    const gameObj = data[appID].data;
+
+    const gameData = {
+        name: gameObj.name,
+        priceInCents: gameObj.is_free ? 0 : gameObj.price_overview.initial,
+        genres: gameObj.genres.map(genre => genre.description),
+        img: gameObj.header_image,
+        description: gameObj.short_description
+    }
+
+    insertGame(gameData);
+})
+
 module.exports = indexRouter;
