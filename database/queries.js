@@ -62,20 +62,7 @@ const gameId = gameResult.rows[0].id;
 
 }
 
-async function deleteGame(game) {
-  const gameResult = await pool.query(
-    `
-    SELECT id FROM games WHERE game = $1
-    `,
-    [game]
-  );
-
-  if(gameResult.rows.length === 0) {
-    return; //no game found with this name
-  }
-
-  const gameID = gameResult.rows[0].id;
-
+async function deleteGame(gameID) {
 
   await pool.query(
     `

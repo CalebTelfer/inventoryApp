@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>The Game Store</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
+
+
 <body>
     <header>
         <nav>
@@ -17,58 +20,50 @@
         </nav>
     </header>
 
-    <div class="hero">
-        <h1>Add a Game</h1>
+
+
+
+    <div class="hero" style="height: 20vh;">
+        <h1>Admin Panel</h1>
         <p>
-            Please enter a valid 
-            <a href="https://store.steampowered.com/" style="color: rgb(223, 134, 134);" target="_blank">steam game store</a> 
-            url to add to our store page!
+            Remove, add, or modify existing games here. Be careful, there is no undo button.
         </p>
 
-        <form class="adminform" action="/newgame" method="post">
-            <input type="text" name="steamurl" id="steamurl"
-            placeholder="ex: https://store.steampowered.com/app/1172710/Dune_Awakening/" required
-            >
-
-            <button class="adminbutton">Add To Store</button>
-        </form>
+        <div>
+            <button>Genres</button>
+            <button>Price Range</button>
+            <button>Sort by</button>
+        </div>
     </div>
 
 
-    <div class="hero">
-        <h1>Remove a Game</h1>
-        <p>
-            Please enter the EXACT name of displayed game to be removed!
-        </p>
 
-        <form class="adminform" action="/deletegame" method="post">
-            <input type="text" name="delgame" id="delgame"
-            placeholder="ex: Super Battle Golf" required
-            >
 
-            <button class="adminbutton">Remove From Store</button>
-        </form>
+    <div class="game-grid">
+        <%games.forEach((game) => { %>
+            <div class="game-card">
+                <img src="<%=game.img_url%>">
+                <div class="game-title space-between">
+                    <div class="flex gap-1">
+                        <h3><%=game.displayPrice %></h3>
+                        <h3><%=game.game%></h3>
+                    </div>
+                    <div class="flex gap-1 align-cen">
+                        <button class="edit-button on-hover" data-id="<%= game.id%>">EDIT</button>
+                        <button class="remove-button on-hover" data-id="<%= game.id%>">REMOVE</button>
+                    </div>
+                </div>
+                <h5 class="genres"><%=game.genres%></h5>
+                <p class="game-desc"><%=game.description%></p>
+            </div>
+        <%})%>
     </div>
 
 
-    <div class="hero" style="height: 40vh;">
-        <h1>Change Game Price</h1>
-        <p>
-            Please enter the EXACT name of displayed game to be updated!
-        </p>
+    <footer>
+        <h2>Thanks for shopping at the stem game store!</h2>
+    </footer>
 
-        <form class="adminform" action="/updateprice" method="post">
-            <input type="text" name="updatename" id="updatename"
-            placeholder="ex: Super Battle Golf" required
-            >
-            <p>
-                Please enter the new price in CENTS!
-            </p>
-            <input type="number" name="newprice" id="newprice" placeholder="ex: 4999 is $49.99" required>
-
-            <button class="adminbutton">Update Price</button>
-        </form>
-    </div>
-
+    <script src="/adminPage.js"></script>
 </body>
 </html>

@@ -111,3 +111,50 @@ footer {
     height: 2rem;
     width: 20%;
 }
+
+.flex {
+    display: flex;
+}
+
+.align-cen {
+    align-items: center;
+}
+
+.gap-1 {
+    gap: 1rem;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.edit-button {
+    height: 2rem;
+    background-color: rgb(35, 109, 128);
+    border-style: none;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 80%;
+    color: #f8fafc;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    
+}
+
+.remove-button {
+    height: 2rem;
+    background-color: red;
+    border-style: none;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 80%;
+    color: #f8fafc;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.on-hover:hover {
+    transform: scale(1.05);
+}

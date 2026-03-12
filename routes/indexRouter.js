@@ -11,8 +11,14 @@ indexRouter.get('/', async (req, res) => {
     res.render('index', {games});
 })
 
-
-indexRouter.get('/admin', (req,res) => res.render('admin'));
+indexRouter.get('/admin', async (req, res) => {
+    const rawGames = await getAllGames();
+    const games = rawGames.map(game => {
+        game.displayPrice = game.price_cents == 0 ? "FREE" : "$" + (game.price_cents/100).toFixed(2);
+        return game;
+    })
+    res.render('admin', {games});
+})
 
 
 indexRouter.post('/newgame', async (req,res) => {
@@ -48,6 +54,12 @@ indexRouter.post('/updateprice', async (req,res) => {
     await updateGame(gameName, price);
     res.redirect('/');
 });
+
+indexRouter.delete('/admin/delete/:id', async (req,res) => {
+    const id = req.params.id;
+    await deleteGame(id);
+    res.send(200);
+})
 
 
 module.exports = indexRouter;
