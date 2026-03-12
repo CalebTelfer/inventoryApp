@@ -23,7 +23,7 @@
 
 
 
-    <div class="hero">
+    <div class="hero" style="height: 20vh;">
         <h1>Welcome</h1>
         <p>Browsing for your next game, or just fancy looking at what's new? From community 
                 favourites to brand new games, see some... of them here!
@@ -36,22 +36,27 @@
         </div>
     </div>
 
-
-
-
-    <div class="game-grid">
-
-            <div class="game-card">
-                <img src="<%=game.img_url%>">
-                <div class="game-title">
-                    <h3><%=game.displayPrice %></h3>
-                    <h3><%=game.game%></h3>
-                </div>
-                <h5 class="genres"><%=game.genres%></h5>
-                <p class="game-desc"><%=game.description%></p>
-            </div>
+<div class="game-grid">
+    <div class="game-card" style="max-width: 920px;">
+        <img src="<%= game.img_url %>" id="preview-img">
     </div>
 
+    <div class="game-card">
+        <div class="game-title">
+            <input type="number" name="price_cents" value="<%= game.price_cents %>">
+
+            <input type="text" name="game" value="<%= game.game %>">
+        </div>
+
+        <input type="text" name="genres" value="<%= game.genres %>">
+
+        <textarea name="description"><%= game.description %></textarea>
+
+        <input type="text" name="img_url" value="<%= game.img_url %>">
+
+    <button type="submit">Save Changes</button>
+  </div>
+</div>
 
     <footer>
         <h2>Thanks for shopping at the stem game store!</h2>
