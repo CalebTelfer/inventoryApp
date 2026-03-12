@@ -91,9 +91,32 @@ async function updateGame(name, price) {
   )
 }
 
+async function getGame(id) {
+  const { rows } = await pool.query(`
+    SELECT 
+      games.id,
+      games.game,
+      games.price_cents,
+      games.img_url,
+      games.description,
+      STRING_AGG(genres.genre, ', ') AS genres
+    FROM games
+    JOIN game_genres ON games.id = game_genres.game_id
+    JOIN genres ON genres.id = game_genres.genre_id
+    WHERE games.id = $1
+    GROUP BY games.id
+    ORDER BY games.id
+  `,
+  [id]
+);
+
+  return rows[0];
+}
+
 module.exports = {
   getAllGames,
   insertGame,
   deleteGame,
-  updateGame
+  updateGame,
+  getGame
 };

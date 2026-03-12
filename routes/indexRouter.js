@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const indexRouter = Router();
-const { getAllGames, insertGame, deleteGame, updateGame } = require("../database/queries");
+const { getAllGames, insertGame, deleteGame, updateGame, getGame } = require("../database/queries");
 
 indexRouter.get('/', async (req, res) => {
     const rawGames = await getAllGames();
@@ -61,5 +61,14 @@ indexRouter.delete('/admin/delete/:id', async (req,res) => {
     res.send(200);
 })
 
+
+indexRouter.get('/admin/edit/:id', async (req,res) => {
+    const id = req.params.id;
+
+    const game = await getGame(id);
+    game.displayPrice = game.price_cents == 0 ? "FREE" : "$" + (game.price_cents/100).toFixed(2);
+    
+    res.render('editGame' ,{game});
+})
 
 module.exports = indexRouter;
