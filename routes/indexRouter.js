@@ -2,6 +2,8 @@ const { Router } = require('express');
 const indexRouter = Router();
 const { getAllGames, insertGame, deleteGame, updateGame, getGame } = require("../database/queries");
 
+indexRouter.get('/testing', (req,res) => res.render('testing'));
+
 indexRouter.get('/', async (req, res) => {
     const rawGames = await getAllGames();
     const games = rawGames.map(game => {
