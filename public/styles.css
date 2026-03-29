@@ -158,3 +158,15 @@ footer {
 .on-hover:hover {
     transform: scale(1.05);
 }
+
+
+hr {
+    border: none;
+    border-top: 1px solid #d1d5db;
+    margin: 2rem 0;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
