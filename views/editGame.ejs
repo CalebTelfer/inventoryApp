@@ -37,11 +37,11 @@
                 <hr>
                 <img src="<%=game.img_url%>" alt="" class="br5">
                 <div class="previewinfo">
-                    <h2><%=game.game%></h2>
-                    <h2 style="color: rgb(2, 78, 2);"><%=game.displayPrice%></h2>
-                    <p><%=game.genres%></p>
+                    <h2 id="previewtitle"><%=game.game%></h2>
+                    <h2 id="previewprice" style="color: rgb(2, 78, 2);"><%=game.displayPrice%></h2>
+                    <p id="previewgenres"><%=game.genres%></p>
                     <hr>
-                    <p><%=game.description%></p>
+                    <p id="previewdesc"><%=game.description%></p>
                 </div>
             </div>
 
@@ -76,5 +76,6 @@
         <h2>Thanks for shopping at the stem game store!</h2>
     </footer>
 
+    <script src="/editPage.js"></script>
 </body>
 </html>
