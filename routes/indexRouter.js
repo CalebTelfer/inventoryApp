@@ -50,13 +50,6 @@ indexRouter.post('/deletegame', async (req,res) => {
     res.redirect('/');
 });
 
-indexRouter.post('/updateprice', async (req,res) => {
-    const gameName = req.body.updatename;
-    const price = req.body.newprice; //here would be a good idea to sanitize or validate input later
-    await updateGame(gameName, price);
-    res.redirect('/');
-});
-
 indexRouter.delete('/admin/delete/:id', async (req,res) => {
     const id = req.params.id;
     await deleteGame(id);
@@ -71,6 +64,18 @@ indexRouter.get('/admin/edit/:id', async (req,res) => {
     game.displayPrice = game.price_cents == 0 ? "FREE" : "$" + (game.price_cents/100).toFixed(2);
     
     res.render('editGame' ,{game});
+})
+
+indexRouter.post('/editUpdate', async (req,res) => {
+    const { title, price, genres, desc, imgurl } = req.body;
+    console.log("test")
+
+    //id, name, price, genres, desc, imgurl
+    const gameID = req.query.id;
+
+    // will need to change price to cents, and double check imgurl too
+    await updateGame(gameID, title, price, desc, imgurl);
+    res.redirect('/');
 })
 
 module.exports = indexRouter;

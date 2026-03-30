@@ -80,14 +80,17 @@ async function deleteGame(gameID) {
 }
 
 
-async function updateGame(name, price) {
+async function updateGame(id, name, price, desc, imgurl) {
   await pool.query(
     `
     UPDATE games
-    SET price_cents = $1
-    WHERE game = $2
+    SET game = $2,
+    price_cents = $3,
+    description = $4,
+    img_url = $5
+    WHERE id = $1
     `,
-    [price, name]
+    [id, name, price, desc, imgurl]
   )
 }
 

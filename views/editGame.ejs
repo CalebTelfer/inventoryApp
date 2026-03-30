@@ -50,7 +50,7 @@
             <div class="preview-container">
                 <h2>Edit Details</h2>
                 <hr>
-                <form method="POST" action="/editupdate" class="edit-form">
+                <form method="POST" action="/editUpdate?id=<%=game.id%>" class="edit-form" id="edit-form">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" placeholder="<%=game.game%>">
                     <label for="price">Price</label>
@@ -65,7 +65,7 @@
                 <hr>
 
                 <div class="button-container">
-                    <button class="save-changes on-hover">Save Changes</button>
+                    <button type="submit" form="edit-form" class="save-changes on-hover">Save Changes</button>
                     <button class="cancel on-hover">Cancel</button>
                 </div>
             </div>
