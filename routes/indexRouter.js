@@ -2,6 +2,9 @@ const { Router } = require('express');
 const indexRouter = Router();
 const { getAllGames, insertGame, deleteGame, updateGame, getGame } = require("../database/queries");
 
+const { body, validationResult } = require("express-validator");
+
+
 indexRouter.get('/testing', (req,res) => res.render('testing'));
 
 indexRouter.get('/', async (req, res) => {
@@ -66,16 +69,55 @@ indexRouter.get('/admin/edit/:id', async (req,res) => {
     res.render('editGame' ,{game});
 })
 
-indexRouter.post('/editUpdate', async (req,res) => {
-    const { title, price, genres, desc, imgurl } = req.body;
-    console.log("test")
+indexRouter.post('/editUpdate',
+    [
+        body("title")
+        .notEmpty()
+        .withMessage("Title is required"),
 
-    //id, name, price, genres, desc, imgurl
-    const gameID = req.query.id;
+        body("price")
+        .optional({ checkFalsy: true })
+        .isFloat({ min: 0 })
+        .withMessage("Price must be a positive number"),
 
-    // will need to change price to cents, and double check imgurl too
-    await updateGame(gameID, title, price, desc, imgurl);
-    res.redirect('/');
+        body("genres")
+        .notEmpty()
+        .withMessage("Must Include Genres"),
+
+        body("desc")
+        .notEmpty()
+        .withMessage("Must Include Description"),
+
+        body("imgurl")
+        .isURL()
+        .withMessage("Must be a valid URL")
+        .matches(/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i)
+        .withMessage("URL must point to an image")
+    ],
+
+    async (req,res) => {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array().map(error => error.msg),
+        });
+        }
+
+        const { title, price, genres, desc, imgurl } = req.body;
+
+        //id, name, price, genres, desc, imgurl
+        const gameID = req.query.id;
+        const pricecents = price.replaceAll(".", "");
+
+        const genreArray = genres
+        .split(/[,\s]+/)
+        .map(genre => genre.trim())
+        .filter(genre => genre !== "");
+
+        await updateGame(gameID, title, pricecents, genreArray, desc, imgurl);
+        res.redirect('/');
 })
 
 module.exports = indexRouter;

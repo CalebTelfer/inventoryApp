@@ -80,7 +80,7 @@ async function deleteGame(gameID) {
 }
 
 
-async function updateGame(id, name, price, desc, imgurl) {
+async function updateGame(id, name, price, genres, desc, imgurl) {
   await pool.query(
     `
     UPDATE games
@@ -88,10 +88,55 @@ async function updateGame(id, name, price, desc, imgurl) {
     price_cents = $3,
     description = $4,
     img_url = $5
-    WHERE id = $1
+    WHERE id = $1;
     `,
     [id, name, price, desc, imgurl]
-  )
+  );
+
+    await pool.query(
+    `
+    DELETE FROM game_genres
+    WHERE game_id = $1;
+    `,
+    [id]
+  );
+
+  for (const genre of genres) {
+    const genreResult = await pool.query(
+      `
+      INSERT INTO genres (genre)
+      VALUES ($1)
+      ON CONFLICT (genre) DO NOTHING
+      RETURNING ID;
+      `,
+      [genre]
+    );
+
+    let genreId;
+    
+    if (genreResult.rows.length > 0) {
+      genreId = genreResult.rows[0].id;
+    } else {
+      const existingGenre = await pool.query(
+      `
+      SELECT id FROM genres
+      WHERE genre = $1;
+      `,
+      [genre]
+    );
+
+    genreId = existingGenre.rows[0].id;
+    }
+
+    await pool.query(
+    `
+      INSERT INTO game_genres (game_id, genre_id)
+      VALUES ($1, $2);
+    `,
+    [id, genreId]
+  );
+  }
+
 }
 
 async function getGame(id) {
