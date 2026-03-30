@@ -44,9 +44,13 @@
                     <p><%=game.description%></p>
                 </div>
             </div>
+
+
+
             <div class="preview-container">
                 <h2>Edit Details</h2>
-                <form method="POST" action="/editupdate" class="flex-col">
+                <hr>
+                <form method="POST" action="/editupdate" class="edit-form">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" placeholder="<%=game.game%>">
                     <label for="price">Price</label>
@@ -59,8 +63,11 @@
                     <input type="text" name="imgurl" id="imgurl" placeholder="<%=game.img_url%>">
                 </form>
                 <hr>
-                <button>Save Changes</button>
-                <button>Cancel</button>
+
+                <div class="button-container">
+                    <button class="save-changes on-hover">Save Changes</button>
+                    <button class="cancel on-hover">Cancel</button>
+                </div>
             </div>
         </div>
     </div>

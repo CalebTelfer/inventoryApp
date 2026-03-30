@@ -216,3 +216,49 @@ hr {
 .br5 {
     border-radius: 5px;
 }
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.edit-form > label {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.edit-form > input {
+    height: 2rem;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6rem;
+}
+
+.button-container > button {
+    width: 30%;
+    height: 3rem;
+    border-style: none;
+    border-radius: 10px;
+}
+
+.save-changes {
+    background-color: rgb(49, 128, 217);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.cancel {
+    background-color: rgb(124, 121, 121);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.save-changes:hover, .cancel:hover {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
