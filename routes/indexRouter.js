@@ -109,7 +109,7 @@ indexRouter.post('/editUpdate',
 
         //id, name, price, genres, desc, imgurl
         const gameID = req.query.id;
-        const pricecents = price.replaceAll(".", "");
+        const pricecents = Math.round(parseFloat(price) * 100);
 
         const genreArray = genres
         .split(/[,\s]+/)
